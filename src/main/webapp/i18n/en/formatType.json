@@ -1,0 +1,10 @@
+{
+    "gatewayApp": {
+        "FormatType" : {
+            "null": "",
+            "PDF": "PDF",
+            "DOCX": "DOCX",
+            "XLSX": "XLSX"
+        }
+    }
+}
