@@ -1,13 +1,14 @@
 
 <div *ngIf="file">
-    <h2><span jhiTranslate="gatewayApp.file.detail.title">File</span> {{file.id}}</h2>
+    <h2><span jhiTranslate="gatewayApp.file.detail.title">File Details</span></h2>
+    <h3>{{file.name}}</h3>
     <hr>
     <jhi-alert-error></jhi-alert-error>
     <dl class="row-md jh-entity-details">
-        <dt><span jhiTranslate="gatewayApp.file.code">Code</span></dt>
+        <!-- <dt><span jhiTranslate="gatewayApp.file.code">Code</span></dt>
         <dd>
             <span>{{file.code}}</span>
-        </dd>
+        </dd> -->
         <dt><span jhiTranslate="gatewayApp.file.name">Name</span></dt>
         <dd>
             <span>{{file.name}}</span>
@@ -20,12 +21,12 @@
         <dd>
             <div *ngIf="file.content">
                 <a (click)="openFile(file.contentContentType, file.content)" jhiTranslate="entity.action.open">open</a>
-                {{file.contentContentType}}, {{byteSize(file.content)}}
+                {{file.name}}.{{file.format}}
             </div>
         </dd>
         <dt><span jhiTranslate="gatewayApp.file.fileSize">File Size</span></dt>
         <dd>
-            <span>{{file.fileSize}}</span>
+            <span>{{file.fileSize}} bytes</span>
         </dd>
         <dt><span jhiTranslate="gatewayApp.file.format">Format</span></dt>
         <dd>
@@ -39,12 +40,11 @@
         <dd>
             <span>{{file.lastModified | date:'mediumDate'}}</span>
         </dd>
-        <dt><span jhiTranslate="gatewayApp.file.login">Login</span></dt>
+        <!-- <dt><span jhiTranslate="gatewayApp.file.login">Login</span></dt>
         <dd>
             <span>{{file.login}}</span>
-        </dd>
+        </dd> -->
     </dl>
-
     <button type="submit"
             (click)="previousState()"
             class="btn btn-info">

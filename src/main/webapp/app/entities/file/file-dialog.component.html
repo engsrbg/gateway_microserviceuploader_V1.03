@@ -2,7 +2,8 @@
 
     <div class="modal-header">
         <h4 class="modal-title" id="myFileLabel" jhiTranslate="gatewayApp.file.home.createOrEditLabel">Create or edit a File</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
@@ -10,117 +11,106 @@
         that is the case when user crete new file -->
         <div class="form-group" [hidden]="!file.id">
             <label for="id" jhiTranslate="global.field.id">ID</label>
-            <input type="text" class="form-control" id="id" name="id" [(ngModel)]="file.id" readonly />
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="file.id" readonly />
         </div>
         <!-- this must be hidden always -->
         <div class="form-group" hidden>
             <label class="form-control-label" jhiTranslate="gatewayApp.file.code" for="field_code">Code</label>
-            <input type="text" class="form-control" name="code" id="field_code" [(ngModel)]="file.code" />
+            <input type="text" class="form-control" name="code" id="field_code"
+                [(ngModel)]="file.code" [readonly]="file.id"/>
         </div>
         <!-- if id alredy exist name cannot be changed
-              that is the case when user trying to edit file -->
+        that is the case when user trying to edit file -->
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="gatewayApp.file.name" for="field_name">Name</label>
-            <input type="text" class="form-control" name="name" id="field_name" [(ngModel)]="file.name" [readonly]="file.id" />
+            <input type="text" class="form-control" name="name" id="field_name"
+                [(ngModel)]="file.name" [readonly]="file.id"/>
         </div>
         <div class="form-group" [hidden]="file.id">
-            <label class="form-control-label" jhiTranslate="gatewayApp.file.format" for="field_format">Format</label>
-            <br>
-            <!-- <select class="form-control" name="format" [(ngModel)]="file.format" id="field_format">
-                    <option value="PDF">{{'gatewayApp.FormatType.PDF' | translate}}</option>
-                    <option value="DOCX">{{'gatewayApp.FormatType.DOCX' | translate}}</option>
-                    <option value="XLSX">{{'gatewayApp.FormatType.XLSX' | translate}}</option>
-                </select> -->
+            <label class="form-control-label" jhiTranslate="gatewayApp.file.format" for="field_format">Format</label><br>
+            <!-- <select class="form-control" name="format" [(ngModel)]="file.format" id="field_format" >
+                <option value="PDF">{{'gatewayApp.FormatType.PDF' | translate}}</option>
+                <option value="DOCX">{{'gatewayApp.FormatType.DOCX' | translate}}</option>
+                <option value="XLSX">{{'gatewayApp.FormatType.XLSX' | translate}}</option>
+            </select> -->
             <radio-group id="field_format" [required]="true">
-                <input type="radio" name="gender" [(ngModel)]="file.format" value="PDF">{{'gatewayApp.FormatType.PDF' | translate}}
+                <input type="radio" name="PDF" [(ngModel)]="file.format" value="PDF">{{'gatewayApp.FormatType.PDF' | translate}}
                 <br>
-                <input type="radio" name="gender" [(ngModel)]="file.format" value="DOCX">{{'gatewayApp.FormatType.DOCX' | translate}}
+                <input type="radio" name="DOCX" [(ngModel)]="file.format" value="DOCX">{{'gatewayApp.FormatType.DOCX' | translate}}
                 <br>
-                <input type="radio" name="gender" [(ngModel)]="file.format" value="XLSX"> {{'gatewayApp.FormatType.XLSX' | translate}}
+                <input type="radio" name="XLSX" [(ngModel)]="file.format" value="XLSX"> {{'gatewayApp.FormatType.XLSX' | translate}}
             </radio-group>
-
         </div>
-
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="gatewayApp.file.description" for="field_description">Description</label>
-            <!-- <input type="textarea" class="form-control" name="description" id="field_description" [(ngModel)]="file.description" /> -->
+            <!-- <input type="text" class="form-control" name="description" id="field_description" [(ngModel)]="file.description" /> -->
             <textarea class="form-control" name="description" id="field_description" [(ngModel)]="file.description">Enter description here...</textarea>
         </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="gatewayApp.file.content" for="field_content">Content</label>
-
             <div>
-
                 <div *ngIf="file.content" class="form-text text-danger clearfix">
+                    <a class="pull-left" (click)="openFile(file.contentContentType, file.content)" jhiTranslate="entity.action.open">open</a><br>
                     <span class="pull-left">{{file.name}}.{{file.format}}</span>
-                    <br>
-                    <a [hidden]="!file.id" class="pull-left" (click)="openFile(file.contentContentType, file.content)" jhiTranslate="entity.action.open">open</a>
-
-
-
                     <!-- button and input for adding new file will be hidden if file alredy exist which is case
                     when user trying to update file -->
-                    <button [hidden]="file.content" type="button" (click)="file.content=null;file.contentContentType=null;" class="btn btn-secondary btn-xs pull-right">
+                    <button [hidden]="file.content" type="button" (click)="file.content=null;file.contentContentType=null;"
+                            class="btn btn-secondary btn-xs pull-right">
                         <span class="fa fa-times"></span>
                     </button>
                 </div>
-                <input [hidden]="file.content" type="file" id="file_content" (change)="setFileData($event, file, 'content', false)" jhiTranslate="entity.action.addblob"
-                />
+                <input [hidden]="file.content" type="file" id="file_content" (change)="setFileData($event, file, 'content', false)" jhiTranslate="entity.action.addblob"/>
             </div>
-            <input type="hidden" class="form-control" name="content" id="field_content" [(ngModel)]="file.content" maxbytes="20971520"
-            />
-            <input type="hidden" class="form-control" name="contentContentType" id="field_contentContentType" [(ngModel)]="file.contentContentType"
-            />
+            <input type="hidden" class="form-control" name="content" id="field_content"
+                [(ngModel)]="file.content" maxbytes="20971520"/>
+            <input type="hidden" class="form-control" name="contentContentType" id="field_contentContentType"
+                [(ngModel)]="file.contentContentType" />
             <div [hidden]="!(editForm.controls.content?.dirty && editForm.controls.content?.invalid)">
-                <small class="form-text text-danger" [hidden]="!editForm.controls.content?.errors?.maxbytes" jhiTranslate="entity.validation.maxbytes"
-                    translateValues="{ max: 20971520 }">
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.content?.errors?.maxbytes" jhiTranslate="entity.validation.maxbytes" translateValues="{ max: 20971520 }">
                     This field cannot be more than 20971520.
                 </small>
             </div>
         </div>
         <div class="form-group" [hidden]="!file.id">
             <label class="form-control-label" jhiTranslate="gatewayApp.file.fileSize" for="field_fileSize">File Size</label>
-            <input type="number" class="form-control" name="fileSize" id="field_fileSize" [(ngModel)]="file.fileSize" readonly/>
+            <input type="number" class="form-control" name="fileSize" id="field_fileSize"
+                [(ngModel)]="file.fileSize" readonly/>
         </div>
-
         <div class="form-group" [hidden]="!file.id">
             <label class="form-control-label" jhiTranslate="gatewayApp.file.dateCreated" for="field_dateCreated">Date Created</label>
             <div class="input-group">
-                <input id="field_dateCreated" type="text" class="form-control" name="dateCreated" ngbDatepicker #dateCreatedDp="ngbDatepicker"
-                    [(ngModel)]="file.dateCreated" readonly />
+                <input id="field_dateCreated" type="text" class="form-control" name="dateCreated" ngbDatepicker  #dateCreatedDp="ngbDatepicker" [(ngModel)]="file.dateCreated"
+                readonly/>
                 <!-- <span class="input-group-btn">
-                    <button type="button" class="btn btn-secondary" (click)="dateCreatedDp.toggle()">
-                        <i class="fa fa-calendar"></i>
-                    </button>
+                    <button type="button" class="btn btn-secondary" (click)="dateCreatedDp.toggle()"><i class="fa fa-calendar"></i></button>
                 </span> -->
             </div>
         </div>
         <div class="form-group" [hidden]="!file.id">
             <label class="form-control-label" jhiTranslate="gatewayApp.file.lastModified" for="field_lastModified">Last Modified</label>
             <div class="input-group">
-                <input id="field_lastModified" type="text" class="form-control" name="lastModified" ngbDatepicker #lastModifiedDp="ngbDatepicker"
-                    [(ngModel)]="file.lastModified" readonly />
+                <input id="field_lastModified" type="text" class="form-control" name="lastModified" ngbDatepicker  #lastModifiedDp="ngbDatepicker" [(ngModel)]="file.lastModified"
+                readonly/>
                 <!-- <span class="input-group-btn">
-                    <button type="button" class="btn btn-secondary" (click)="lastModifiedDp.toggle()">
-                        <i class="fa fa-calendar"></i>
-                    </button>
+                    <button type="button" class="btn btn-secondary" (click)="lastModifiedDp.toggle()"><i class="fa fa-calendar"></i></button>
                 </span> -->
             </div>
         </div>
         <div class="form-group" hidden>
             <label class="form-control-label" jhiTranslate="gatewayApp.file.login" for="field_login">Login</label>
-            <input type="text" class="form-control" name="login" id="field_login" [(ngModel)]="file.login" />
+            <input type="text" class="form-control" name="login" id="field_login"
+                [(ngModel)]="file.login" />
         </div>
 
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
-            <span class="fa fa-ban"></span>&nbsp;
-            <span jhiTranslate="entity.action.cancel">Cancel</span>
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
         </button>
         <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
-            <span class="fa fa-save"></span>&nbsp;
-            <span jhiTranslate="entity.action.save">Save</span>
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
         </button>
     </div>
 </form>

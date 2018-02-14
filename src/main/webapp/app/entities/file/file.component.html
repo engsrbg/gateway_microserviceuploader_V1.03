@@ -17,35 +17,40 @@
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="code"><span jhiTranslate="gatewayApp.file.code">Code</span> <span class="fa fa-sort"></span></th>
+            <!-- <th jhiSortBy="code"><span jhiTranslate="gatewayApp.file.code">Code</span> <span class="fa fa-sort"></span></th> -->
             <th jhiSortBy="name"><span jhiTranslate="gatewayApp.file.name">Name</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="description"><span jhiTranslate="gatewayApp.file.description">Description</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="content"><span jhiTranslate="gatewayApp.file.content">Content</span> <span class="fa fa-sort"></span></th>
+            <!-- <th jhiSortBy="content"><span jhiTranslate="gatewayApp.file.content">Content</span> <span class="fa fa-sort"></span></th> -->
             <th jhiSortBy="fileSize"><span jhiTranslate="gatewayApp.file.fileSize">File Size</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="format"><span jhiTranslate="gatewayApp.file.format">Format</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="dateCreated"><span jhiTranslate="gatewayApp.file.dateCreated">Date Created</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="lastModified"><span jhiTranslate="gatewayApp.file.lastModified">Last Modified</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="login"><span jhiTranslate="gatewayApp.file.login">Login</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="login" hidden><span jhiTranslate="gatewayApp.file.login">Login</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let file of files ;trackBy: trackId">
                 <td><a [routerLink]="['../file', file.id ]">{{file.id}}</a></td>
-                <td>{{file.code}}</td>
-                <td>{{file.name}}</td>
+                <!-- <td >{{file.code}}</td> -->
+                <td>{{file.name}}.{{file.format}}</td>
                 <td>{{file.description}}</td>
-                <td>
-                    <a *ngIf="file.content" (click)="openFile(file.contentContentType, file.content)" jhiTranslate="entity.action.open">open</a>
-                    <span *ngIf="file.content">{{file.contentContentType}}, {{byteSize(file.content)}}</span>
-                </td>
-                <td>{{file.fileSize}}</td>
+                <!-- <td>
+                    
+                    <span *ngIf="file.content">{{file.name}}.{{file.format}}</span>
+                </td> -->
+                <td>{{file.fileSize}} bytes</td>
                 <td jhiTranslate="{{'gatewayApp.FormatType.' + file.format}}">{{file.format}}</td>
                 <td>{{file.dateCreated | date:'mediumDate'}}</td>
                 <td>{{file.lastModified | date:'mediumDate'}}</td>
-                <td>{{file.login}}</td>
+                <td hidden>{{file.login}}</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
+
+                        <button *ngIf="file.content" (click)="openFile(file.contentContentType, file.content)" jhiTranslate="entity.action.open">
+                                <span>Open</span>
+                        </button>
+
                         <button type="submit"
                                 [routerLink]="['../file', file.id ]"
                                 class="btn btn-info btn-sm">

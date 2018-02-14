@@ -10,7 +10,7 @@
                 "question": "Are you sure you want to delete File {{ id }}?"
             },
             "detail": {
-                "title": "File"
+                "title": "File Details"
             },
             "code": "Code",
             "name": "Name",
@@ -23,7 +23,7 @@
             "login": "Login"
         }
     },
-    "microserviceuploaderApp": {
+    "microserviceuploadApp": {
         "file" : {
             "created": "A new File is created with identifier {{ param }}",
             "updated": "A File is updated with identifier {{ param }}",
