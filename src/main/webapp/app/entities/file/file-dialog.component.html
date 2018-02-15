@@ -1,7 +1,8 @@
 <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
 
     <div class="modal-header">
-        <h4 class="modal-title" id="myFileLabel" jhiTranslate="gatewayApp.file.home.createOrEditLabel">Create or edit a File</h4>
+        <h4 *ngIf="!file.id" class="modal-title" id="myFileLabel" jhiTranslate="gatewayApp.file.home.createNewLabel">Create a File</h4>
+        <h4 *ngIf="file.id" class="modal-title" id="myFileLabel" jhiTranslate="gatewayApp.file.home.editLabel">Edit a File</h4>
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
     </div>
     <div class="modal-body">
@@ -15,12 +16,12 @@
         <!-- if id alredy exist name cannot be changed
         that is the case when user trying to edit file -->
         <div class="form-group">
-            <label class="form-control-label" jhiTranslate="gatewayApp.file.name" for="field_name">Name</label>
+            <label class="form-control-label" jhiTranslate="gatewayApp.file.name" for="field_name">Name of your File</label>
             <input type="text" class="form-control" name="name" id="field_name" [(ngModel)]="file.name" [readonly]="file.id" />
         </div>
         <!-- if file with it's id exist we can't see radio buttons -->
         <div class="form-group" [hidden]="file.id">
-            <label class="form-control-label" jhiTranslate="gatewayApp.file.format" for="field_format">Format</label>
+            <label class="form-control-label" jhiTranslate="gatewayApp.file.format" for="field_format">Choose your File format</label>
             <br>
             <radio-group id="field_format" [required]="true">
                 <input type="radio" name="PDF" [(ngModel)]="file.format" value="PDF">{{'gatewayApp.FormatType.PDF' | translate}}

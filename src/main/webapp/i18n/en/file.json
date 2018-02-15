@@ -4,7 +4,8 @@
             "home": {
                 "title": "Files",
                 "createLabel": "Create a new File",
-                "createOrEditLabel": "Create or edit a File"
+                "createNewLabel": "Create a File",
+                "editLabel": "Edit a File"
             },
             "delete": {
                 "question": "Are you sure you want to delete File {{ id }}?"
@@ -12,11 +13,11 @@
             "detail": {
                 "title": "File Details"
             },
-            "name": "Name",
+            "name": "Name of your File",
             "description": "Description",
             "content": "Content",
             "fileSize": "File Size",
-            "format": "Format",
+            "format": "Choose your File format",
             "dateCreated": "Date Created",
             "lastModified": "Last Modified"
         }
