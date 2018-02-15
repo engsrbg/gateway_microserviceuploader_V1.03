@@ -7,6 +7,8 @@ import { File } from './file.model';
 import { FileService } from './file.service';
 import { ITEMS_PER_PAGE, Principal, ResponseWrapper } from '../../shared';
 
+import 'rxjs/Rx';
+
 @Component({
     selector: 'jhi-file',
     templateUrl: './file.component.html'
@@ -27,6 +29,7 @@ export class FileComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
+    _reportService:any;
 
     constructor(
         private fileService: FileService,
@@ -56,6 +59,9 @@ export class FileComponent implements OnInit, OnDestroy {
             (res: ResponseWrapper) => this.onSuccess(res.json, res.headers),
             (res: ResponseWrapper) => this.onError(res.json)
             );
+            this._reportService.getReport().subscribe(data => this.downloadFile(data)),//console.log(data),
+                 error => console.log("Error downloading the file."),
+                 () => console.info("OK");
     }
     loadPage(page: number) {
         if (page !== this.previousPage) {
@@ -127,5 +133,11 @@ export class FileComponent implements OnInit, OnDestroy {
     }
     private onError(error) {
         this.jhiAlertService.error(error.message, null, null);
+    }
+
+    downloadFile(data: Response) {
+        var blob = new Blob([data], { type: 'application/*' });
+        var url = window.URL.createObjectURL(blob);
+        window.open(url);
     }
 }

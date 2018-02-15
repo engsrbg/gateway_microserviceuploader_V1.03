@@ -1,5 +1,4 @@
 <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
-
     <div class="modal-header">
         <h4 *ngIf="!file.id" class="modal-title" id="myFileLabel" jhiTranslate="gatewayApp.file.home.createNewLabel">Create a File</h4>
         <h4 *ngIf="file.id" class="modal-title" id="myFileLabel" jhiTranslate="gatewayApp.file.home.editLabel">Edit a File</h4>
@@ -24,11 +23,14 @@
             <label class="form-control-label" jhiTranslate="gatewayApp.file.format" for="field_format">Choose your File format</label>
             <br>
             <radio-group id="field_format" [required]="true">
-                <input [disabled]="radioDisabled" type="radio" name="PDF" [(ngModel)]="file.format" (click)="setType('application/pdf')" value="PDF">{{'gatewayApp.FormatType.PDF' | translate}}
+                <input [disabled]="radioDisabled" type="radio" name="PDF" [(ngModel)]="file.format" (click)="setType('application/pdf')"
+                    value="PDF">{{'gatewayApp.FormatType.PDF' | translate}}
                 <br>
-                <input [disabled]="radioDisabled" type="radio" name="DOCX" [(ngModel)]="file.format" (click)="setType('application/vnd.openxmlformats-officedocument.wordprocessingml.document')" value="DOCX">{{'gatewayApp.FormatType.DOCX' | translate}}
+                <input [disabled]="radioDisabled" type="radio" name="DOCX" [(ngModel)]="file.format" (click)="setType('application/vnd.openxmlformats-officedocument.wordprocessingml.document')"
+                    value="DOCX">{{'gatewayApp.FormatType.DOCX' | translate}}
                 <br>
-                <input [disabled]="radioDisabled" type="radio" name="XLSX" [(ngModel)]="file.format" (click)="setType('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')" value="XLSX"> {{'gatewayApp.FormatType.XLSX' | translate}}
+                <input [disabled]="radioDisabled" type="radio" name="XLSX" [(ngModel)]="file.format" (click)="setType('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')"
+                    value="XLSX"> {{'gatewayApp.FormatType.XLSX' | translate}}
             </radio-group>
         </div>
         <div class="form-group">
@@ -48,7 +50,8 @@
                         <span class="fa fa-times"></span>
                     </button>
                 </div>
-                <input [hidden]="file.content" [accept]="typeFinal" [disabled]="!typeFinal" type="file" id="file_content" (change)="setFileData($event, file, 'content', false)" jhiTranslate="entity.action.addblob" />
+                <input [hidden]="file.content" [accept]="typeFinal" [disabled]="!typeFinal" type="file" id="file_content" (change)="setFileData($event, file, 'content', false)"
+                    jhiTranslate="entity.action.addblob" />
             </div>
             <input type="hidden" class="form-control" name="content" id="field_content" [(ngModel)]="file.content" maxbytes="20971520"
             />
