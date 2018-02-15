@@ -21,7 +21,7 @@ export class FileDialogComponent implements OnInit {
     dateCreatedDp: any;
     lastModifiedDp: any;
     typeFinal: string;
-    radioDisabled:boolean=false;
+    radioDisabled: boolean = false;
 
     constructor(
         public activeModal: NgbActiveModal,
@@ -44,7 +44,7 @@ export class FileDialogComponent implements OnInit {
     }
 
     setFileData(event, entity, field, isImage) {
-        this.radioDisabled=true;
+        this.radioDisabled = true;
         this.dataUtils.setFileData(event, entity, field, isImage);
     }
 
