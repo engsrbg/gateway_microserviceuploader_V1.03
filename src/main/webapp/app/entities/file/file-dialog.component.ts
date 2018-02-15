@@ -20,7 +20,8 @@ export class FileDialogComponent implements OnInit {
     isSaving: boolean;
     dateCreatedDp: any;
     lastModifiedDp: any;
-    typeFinal:string;
+    typeFinal: string;
+    radioDisabled:boolean=false;
 
     constructor(
         public activeModal: NgbActiveModal,
@@ -43,16 +44,12 @@ export class FileDialogComponent implements OnInit {
     }
 
     setFileData(event, entity, field, isImage) {
-    
-        
-       
+        this.radioDisabled=true;
         this.dataUtils.setFileData(event, entity, field, isImage);
     }
 
-    setType(type:string){
-    this.typeFinal=type;
-    console.log(this.typeFinal);
-         
+    setType(type: string) {
+        this.typeFinal = type;
     }
 
     clear() {
@@ -76,7 +73,7 @@ export class FileDialogComponent implements OnInit {
     }
 
     private onSaveSuccess(result: File) {
-        this.eventManager.broadcast({ name: 'fileListModification', content: 'OK'});
+        this.eventManager.broadcast({ name: 'fileListModification', content: 'OK' });
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
@@ -97,11 +94,11 @@ export class FilePopupComponent implements OnInit, OnDestroy {
     constructor(
         private route: ActivatedRoute,
         private filePopupService: FilePopupService
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            if ( params['id'] ) {
+            if (params['id']) {
                 this.filePopupService
                     .open(FileDialogComponent as Component, params['id']);
             } else {
