@@ -5,10 +5,6 @@
     <hr>
     <jhi-alert-error></jhi-alert-error>
     <dl class="row-md jh-entity-details">
-        <!-- <dt><span jhiTranslate="gatewayApp.file.code">Code</span></dt>
-        <dd>
-            <span>{{file.code}}</span>
-        </dd> -->
         <dt><span jhiTranslate="gatewayApp.file.name">Name</span></dt>
         <dd>
             <span>{{file.name}}</span>
@@ -21,7 +17,7 @@
         <dd>
             <div *ngIf="file.content">
                 <a (click)="openFile(file.contentContentType, file.content)" jhiTranslate="entity.action.open">open</a>
-                {{file.name}}.{{file.format}}
+                {{file.name}}.{{file.format | lowercase}}
             </div>
         </dd>
         <dt><span jhiTranslate="gatewayApp.file.fileSize">File Size</span></dt>
@@ -40,10 +36,6 @@
         <dd>
             <span>{{file.lastModified | date:'mediumDate'}}</span>
         </dd>
-        <!-- <dt><span jhiTranslate="gatewayApp.file.login">Login</span></dt>
-        <dd>
-            <span>{{file.login}}</span>
-        </dd> -->
     </dl>
     <button type="submit"
             (click)="previousState()"

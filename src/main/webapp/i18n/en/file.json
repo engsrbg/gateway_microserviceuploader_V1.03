@@ -12,18 +12,16 @@
             "detail": {
                 "title": "File Details"
             },
-            "code": "Code",
             "name": "Name",
             "description": "Description",
             "content": "Content",
             "fileSize": "File Size",
             "format": "Format",
             "dateCreated": "Date Created",
-            "lastModified": "Last Modified",
-            "login": "Login"
+            "lastModified": "Last Modified"
         }
     },
-    "microserviceuploadApp": {
+    "microserviceuploaderApp": {
         "file" : {
             "created": "A new File is created with identifier {{ param }}",
             "updated": "A File is updated with identifier {{ param }}",
