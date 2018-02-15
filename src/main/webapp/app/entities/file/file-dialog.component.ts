@@ -20,6 +20,7 @@ export class FileDialogComponent implements OnInit {
     isSaving: boolean;
     dateCreatedDp: any;
     lastModifiedDp: any;
+    typeFinal:string;
 
     constructor(
         public activeModal: NgbActiveModal,
@@ -42,7 +43,16 @@ export class FileDialogComponent implements OnInit {
     }
 
     setFileData(event, entity, field, isImage) {
+    
+        
+       
         this.dataUtils.setFileData(event, entity, field, isImage);
+    }
+
+    setType(type:string){
+    this.typeFinal=type;
+    console.log(this.typeFinal);
+         
     }
 
     clear() {
