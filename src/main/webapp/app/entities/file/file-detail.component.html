@@ -18,11 +18,8 @@
         <dd>
             <span>{{file.description}}</span>
         </dd>
-        <dt>
-            <span jhiTranslate="gatewayApp.file.content">Content</span>
-        </dt>
         <dd>
-            <div *ngIf="file.content">
+            <div *ngIf="file.format =='PDF'">
                 <a (click)="openFile(file.contentContentType, file.content)" jhiTranslate="entity.action.open">open</a>
                 {{file.name}}.{{file.format | lowercase}}
             </div>
@@ -43,13 +40,13 @@
             <span jhiTranslate="gatewayApp.file.dateCreated">Date Created</span>
         </dt>
         <dd>
-            <span>{{file.dateCreated | date:'mediumDate'}}</span>
+            <span>{{file.dateCreated | date:'fullDate'}}</span>
         </dd>
         <dt>
             <span jhiTranslate="gatewayApp.file.lastModified">Last Modified</span>
         </dt>
         <dd>
-            <span>{{file.lastModified | date:'mediumDate'}}</span>
+            <span>{{file.lastModified | date:'fullDate'}}</span>
         </dd>
     </dl>
     <button type="submit" (click)="previousState()" class="btn btn-info">

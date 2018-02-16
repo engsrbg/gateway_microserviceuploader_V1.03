@@ -15,9 +15,8 @@
             },
             "name": "Name of your File",
             "description": "Description",
-            "content": "Content",
             "fileSize": "File Size",
-            "format": "Choose your File format",
+            "format": "File format",
             "dateCreated": "Date Created",
             "lastModified": "Last Modified"
         }

@@ -133,7 +133,7 @@ export class FileComponent implements OnInit, OnDestroy {
         this.jhiAlertService.error(error.message, null, null);
     }
 
-    downloadFile(contentType, field) {
+    downloadFile(contentType, field, fileName) {
         // decode base64 string, remove space 
         let binary = atob(field.replace(/\s/g, ''));
         let len = binary.length;
@@ -144,7 +144,6 @@ export class FileComponent implements OnInit, OnDestroy {
         }
         // create the blob object with specific content-type             
         this.blob = new Blob([view], { type: contentType });
-
-        saveAs(this.blob, "padre");
+        saveAs(this.blob, fileName);
     }
 }
