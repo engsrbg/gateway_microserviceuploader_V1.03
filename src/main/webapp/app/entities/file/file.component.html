@@ -61,6 +61,7 @@
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button *ngIf="file.content" (click)="downloadFile(file.contentContentType, file.content, file.name)" class="btn btn-default btn-sm">
+                                <span class="fa fa-cloud-download"></span>
                                 <span jhiTranslate="entity.action.download">Download</span>
                             </button>
                             <button [disabled]="(file.format!='PDF')" *ngIf="file.content" (click)="openFile(file.contentContentType, file.content)"
@@ -69,6 +70,7 @@
                                 <span jhiTranslate="entity.action.open">Open</span>
                             </button>
                             <button type="submit" [routerLink]="['../file', file.id ]" class="btn btn-info btn-sm">
+                                <span class="fa fa-info-circle"></span>
                                 <span class="d-none d-md-inline" jhiTranslate="entity.action.details">Details</span>
                             </button>
                             <button type="submit" [routerLink]="['/', { outlets: { popup: 'file/'+ file.id + '/edit'} }]" replaceUrl="true" queryParamsHandling="merge"
