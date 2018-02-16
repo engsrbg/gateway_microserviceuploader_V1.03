@@ -60,6 +60,9 @@
                     <td>{{file.lastModified | date:'mediumDate'}}</td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
+                            <button *ngIf="file.content" (click)="downloadFile(file.contentContentType, file.content)">
+                                <span>Download</span>
+                            </button>
                             <button *ngIf="file.content" (click)="openFile(file.contentContentType, file.content)" jhiTranslate="entity.action.open">
                                 <span>open</span>
                             </button>

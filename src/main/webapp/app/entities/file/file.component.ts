@@ -6,8 +6,8 @@ import { JhiEventManager, JhiParseLinks, JhiAlertService, JhiDataUtils } from 'n
 import { File } from './file.model';
 import { FileService } from './file.service';
 import { ITEMS_PER_PAGE, Principal, ResponseWrapper } from '../../shared';
+import { saveAs } from 'file-saver'
 
-import 'rxjs/Rx';
 
 @Component({
     selector: 'jhi-file',
@@ -29,6 +29,7 @@ export class FileComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
+    blob: any;
 
     constructor(
         private fileService: FileService,
@@ -57,7 +58,7 @@ export class FileComponent implements OnInit, OnDestroy {
         }).subscribe(
             (res: ResponseWrapper) => this.onSuccess(res.json, res.headers),
             (res: ResponseWrapper) => this.onError(res.json)
-            );
+        );
     }
     loadPage(page: number) {
         if (page !== this.previousPage) {
@@ -126,9 +127,24 @@ export class FileComponent implements OnInit, OnDestroy {
         this.queryCount = this.totalItems;
         // this.page = pagingParams.page;
         this.files = data;
+        console.log(this.files[3].content);
     }
     private onError(error) {
         this.jhiAlertService.error(error.message, null, null);
     }
 
+    downloadFile(contentType, field) {
+        // decode base64 string, remove space 
+        let binary = atob(field.replace(/\s/g, ''));
+        let len = binary.length;
+        let buffer = new ArrayBuffer(len);
+        let view = new Uint8Array(buffer);
+        for (let i = 0; i < len; i++) {
+            view[i] = binary.charCodeAt(i);
+        }
+        // create the blob object with specific content-type             
+        this.blob = new Blob([view], { type: contentType });
+
+        saveAs(this.blob, "padre");
+    }
 }

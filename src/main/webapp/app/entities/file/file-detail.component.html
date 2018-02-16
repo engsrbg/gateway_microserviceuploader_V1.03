@@ -1,53 +1,65 @@
-
 <div *ngIf="file">
-    <h2><span jhiTranslate="gatewayApp.file.detail.title">File Details</span></h2>
+    <h2>
+        <span jhiTranslate="gatewayApp.file.detail.title">File Details</span>
+    </h2>
     <h3>{{file.name}}</h3>
     <hr>
     <jhi-alert-error></jhi-alert-error>
     <dl class="row-md jh-entity-details">
-        <dt><span jhiTranslate="gatewayApp.file.name">Name</span></dt>
+        <dt>
+            <span jhiTranslate="gatewayApp.file.name">Name</span>
+        </dt>
         <dd>
             <span>{{file.name}}</span>
         </dd>
-        <dt><span jhiTranslate="gatewayApp.file.description">Description</span></dt>
+        <dt>
+            <span jhiTranslate="gatewayApp.file.description">Description</span>
+        </dt>
         <dd>
             <span>{{file.description}}</span>
         </dd>
-        <dt><span jhiTranslate="gatewayApp.file.content">Content</span></dt>
+        <dt>
+            <span jhiTranslate="gatewayApp.file.content">Content</span>
+        </dt>
         <dd>
             <div *ngIf="file.content">
                 <a (click)="openFile(file.contentContentType, file.content)" jhiTranslate="entity.action.open">open</a>
                 {{file.name}}.{{file.format | lowercase}}
             </div>
         </dd>
-        <dt><span jhiTranslate="gatewayApp.file.fileSize">File Size</span></dt>
+        <dt>
+            <span jhiTranslate="gatewayApp.file.fileSize">File Size</span>
+        </dt>
         <dd>
             <span>{{file.fileSize}} bytes</span>
         </dd>
-        <dt><span jhiTranslate="gatewayApp.file.format">Format</span></dt>
+        <dt>
+            <span jhiTranslate="gatewayApp.file.format">Format</span>
+        </dt>
         <dd>
             <span jhiTranslate="{{'gatewayApp.FormatType.' + file.format}}">{{file.format}}</span>
         </dd>
-        <dt><span jhiTranslate="gatewayApp.file.dateCreated">Date Created</span></dt>
+        <dt>
+            <span jhiTranslate="gatewayApp.file.dateCreated">Date Created</span>
+        </dt>
         <dd>
             <span>{{file.dateCreated | date:'mediumDate'}}</span>
         </dd>
-        <dt><span jhiTranslate="gatewayApp.file.lastModified">Last Modified</span></dt>
+        <dt>
+            <span jhiTranslate="gatewayApp.file.lastModified">Last Modified</span>
+        </dt>
         <dd>
             <span>{{file.lastModified | date:'mediumDate'}}</span>
         </dd>
     </dl>
-    <button type="submit"
-            (click)="previousState()"
-            class="btn btn-info">
-        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    <button type="submit" (click)="previousState()" class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;
+        <span jhiTranslate="entity.action.back"> Back</span>
     </button>
 
-    <button type="button"
-            [routerLink]="['/', { outlets: { popup: 'file/'+ file.id + '/edit'} }]"
-            replaceUrl="true"
-            queryParamsHandling="merge"
-            class="btn btn-primary">
-        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    <button type="button" [routerLink]="['/', { outlets: { popup: 'file/'+ file.id + '/edit'} }]" replaceUrl="true" queryParamsHandling="merge"
+        class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;
+        <span jhiTranslate="entity.action.edit"> Edit</span>
     </button>
 </div>

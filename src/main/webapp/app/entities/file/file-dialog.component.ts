@@ -81,6 +81,7 @@ export class FileDialogComponent implements OnInit {
     private onSaveError() {
         this.isSaving = false;
     }
+
 }
 
 @Component({
