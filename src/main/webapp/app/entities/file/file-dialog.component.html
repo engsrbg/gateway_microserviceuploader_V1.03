@@ -39,7 +39,7 @@
         </div>
         <div class="form-group">
             <div>
-                <div *ngIf="file.content && file.format =='PDF'" class="form-text text-danger clearfix">
+                <div *ngIf="file.content && (file.format =='PDF' || file.format =='DOCX' || file.format =='XLSX') " class="form-text text-danger clearfix">
                     <a class="pull-left" (click)="openFile(file.contentContentType, file.content)" jhiTranslate="entity.action.open">open</a>
                     <br>
                     <span class="pull-left">{{file.name}}.{{file.format | lowercase}}</span>
