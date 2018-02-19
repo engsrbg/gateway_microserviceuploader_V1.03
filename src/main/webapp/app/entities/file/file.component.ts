@@ -8,7 +8,6 @@ import { FileService } from './file.service';
 import { ITEMS_PER_PAGE, Principal, ResponseWrapper } from '../../shared';
 import { saveAs } from 'file-saver'
 
-
 @Component({
     selector: 'jhi-file',
     templateUrl: './file.component.html'
@@ -125,25 +124,26 @@ export class FileComponent implements OnInit, OnDestroy {
         this.links = this.parseLinks.parse(headers.get('link'));
         this.totalItems = headers.get('X-Total-Count');
         this.queryCount = this.totalItems;
-        // this.page = pagingParams.page;
         this.files = data;
-        console.log(this.files[3].content);
     }
     private onError(error) {
         this.jhiAlertService.error(error.message, null, null);
     }
-
-    downloadFile(contentType, field, fileName) {
-        // decode base64 string, remove space 
-        let binary = atob(field.replace(/\s/g, ''));
-        let len = binary.length;
-        let buffer = new ArrayBuffer(len);
-        let view = new Uint8Array(buffer);
+    // Funtction for downloading diferent types of files. We call this function from button in html page like this:
+    // downloadFile(file.contentContentType, file.content, file.name).
+    downloadFile(contentType, content, fileName) {
+        // decode base64 string, remove whitespaces to create clean and blob format
+        const binary = atob(content.replace(/\s/g, ''));
+        const len = binary.length;
+        const buffer = new ArrayBuffer(len);
+        // The Uint8Array typed array represents an array of 8-bit unsigned integers
+        const view = new Uint8Array(buffer);
         for (let i = 0; i < len; i++) {
             view[i] = binary.charCodeAt(i);
         }
-        // create the blob object with specific content-type             
+        // create the blob object with specific content-type
         this.blob = new Blob([view], { type: contentType });
+        // we need to give clean blob file to function 'saveAs()' and file name to file which is going to be downloaded
         saveAs(this.blob, fileName);
     }
 }

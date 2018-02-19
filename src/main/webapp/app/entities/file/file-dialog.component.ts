@@ -21,7 +21,7 @@ export class FileDialogComponent implements OnInit {
     dateCreatedDp: any;
     lastModifiedDp: any;
     typeFinal: string;
-    radioDisabled: boolean = false;
+    radioDisabled: boolean;
 
     constructor(
         public activeModal: NgbActiveModal,
