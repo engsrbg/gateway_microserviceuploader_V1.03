@@ -22,6 +22,10 @@ export class FileDialogComponent implements OnInit {
     lastModifiedDp: any;
     typeFinal: string;
     radioDisabled: boolean;
+    original: File;
+    originalName: string;
+
+
 
     constructor(
         public activeModal: NgbActiveModal,
@@ -39,13 +43,24 @@ export class FileDialogComponent implements OnInit {
         return this.dataUtils.byteSize(field);
     }
 
+    takeOriginal(event: EventTarget) {
+        let eventObj: MSInputMethodContext = <MSInputMethodContext>event;
+        let target: HTMLInputElement = <HTMLInputElement>eventObj.target;
+        let files: FileList = target.files;
+        this.original = files[0];
+        this.originalName = this.original.name;
+        this.file.name = this.originalName;
+    }
+
     openFile(contentType, field) {
         return this.dataUtils.openFile(contentType, field);
     }
 
-    setFileData(event, entity, field, isImage) {
+    setFileData(event, entity, field, isImage, ime) {
+
         this.radioDisabled = true;
         this.dataUtils.setFileData(event, entity, field, isImage);
+
     }
 
     setType(type: string) {

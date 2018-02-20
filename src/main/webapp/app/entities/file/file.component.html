@@ -52,7 +52,7 @@
                     <td>
                         <a [routerLink]="['../file', file.id ]">{{file.id}}</a>
                     </td>
-                    <td>{{file.name}}.{{file.format | lowercase}}</td>
+                    <td>{{file.name}}</td>
                     <td>{{file.description}}</td>
                     <td>{{file.fileSize}} bytes</td>
                     <td jhiTranslate="{{'gatewayApp.FormatType.' + file.format}}">{{file.format}}</td>
