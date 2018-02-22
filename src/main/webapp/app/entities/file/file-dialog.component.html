@@ -13,7 +13,7 @@
             <input type="text" class="form-control" id="id" name="id" [(ngModel)]="file.id" readonly />
         </div>
         <div [hidden]="typeFinal" class="alert alert-danger">
-            <strong jhiTranslate="gatewayApp.file.alert-format">Attention! Choose format of your file first.</strong> 
+            <strong jhiTranslate="gatewayApp.file.alert-choose">Attention! Choose format of your file first.</strong> 
         </div>
         <!-- if file with it's id exist we can't see radio buttons -->
         <div class="form-group" [hidden]="file.id">

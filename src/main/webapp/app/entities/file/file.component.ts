@@ -7,11 +7,7 @@ import { File } from './file.model';
 import { FileService } from './file.service';
 import { ITEMS_PER_PAGE, Principal, ResponseWrapper } from '../../shared';
 import { saveAs } from 'file-saver'
-import { ButtonDeleteComponent } from './file-actions.component';
-import { ButtonOpenComponent } from './file-actions.component';
-import { ButtonEditComponent } from './file-actions.component';
-import { ButtonDetailsComponent } from './file-actions.component';
-import { ButtonDownloadComponent } from './file-actions.component';
+import { ButtonActionsComponent } from './file-actions.component';
 
 @Component({
     selector: 'jhi-file',
@@ -98,8 +94,8 @@ export class FileComponent implements OnInit, OnDestroy {
                 hideSubHeader: true,
                 addable: false,
             },
-            download: {
-                title: '',
+            actions: {
+                title: 'Actions',
                 filter: false,
                 editable: false,
                 sort: false,
@@ -107,78 +103,16 @@ export class FileComponent implements OnInit, OnDestroy {
                 addable: false,
                 searchable: false,
                 type: 'custom',
-                renderComponent: ButtonDownloadComponent,
-                onComponentInitFunction(instance) {
-                  instance.save.subscribe((row) => {
-                    alert(`${row.name} saved!`)
-                  });
+                renderComponent: ButtonActionsComponent,
+                onComponentInitFunction: (instance) => {
+                    instance.open.subscribe((row) => {
+                        this.openFile(row.contentContentType, row.content);  
+                    });
+                    instance.download.subscribe((row) => {
+                        this.downloadFile(row.contentContentType, row.content, row.name);  
+                    });                
                 }
               },
-              open: {
-                title: '',
-                filter: false,
-                editable: false,
-                sort: false,
-                hideSubHeader: false,
-                addable: false,
-                searchable: false,
-                type: 'custom',
-                renderComponent: ButtonOpenComponent,
-                onComponentInitFunction(instance) {
-                  instance.save.subscribe((row) => {
-                    alert(`${row.name} saved!`)
-                  });
-                }
-              },
-              details: {
-                title: '',
-                filter: false,
-                editable: false,
-                sort: false,
-                hideSubHeader: false,
-                addable: false,
-                searchable: false,
-                type: 'custom',
-                renderComponent: ButtonDetailsComponent,
-                onComponentInitFunction(instance) {
-                  instance.save.subscribe((row) => {
-                    alert(`${row.name} saved!`)
-                  });
-                }
-              },
-              edit: {
-                title: '',
-                filter: false,
-                editable: false,
-                sort: false,
-                hideSubHeader: false,
-                addable: false,
-                searchable: false,
-                type: 'custom',
-                renderComponent: ButtonEditComponent,
-                onComponentInitFunction(instance) {
-                  instance.save.subscribe((row) => {
-                    alert(`${row.name} saved!`)
-                  });
-                }
-              },
-            delete: {
-                title: '',
-                filter: false,
-                editable: false,
-                sort: false,
-                hideSubHeader: false,
-                addable: false,
-                searchable: false,
-                type: 'custom',
-                renderComponent: ButtonDeleteComponent,
-                onComponentInitFunction(instance) {
-                  instance.save.subscribe((row) => {
-                    alert(`${row.name} saved!`)
-                  });
-                }
-              },
-
         }
     }
     // this above are settings for smart tables

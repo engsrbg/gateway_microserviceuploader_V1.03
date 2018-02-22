@@ -3,11 +3,8 @@ import { RouterModule } from '@angular/router';
 
 import { GatewaySharedModule } from '../../shared';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
-import { ButtonDeleteComponent } from './file-actions.component';
-import { ButtonOpenComponent } from './file-actions.component';
-import { ButtonEditComponent } from './file-actions.component';
-import { ButtonDetailsComponent } from './file-actions.component';
-import { ButtonDownloadComponent } from './file-actions.component';
+import { ButtonActionsComponent } from './file-actions.component';
+
 import {
     FileService,
     FilePopupService,
@@ -41,11 +38,8 @@ const ENTITY_STATES = [
         FileDeleteDialogComponent,
         FilePopupComponent,
         FileDeletePopupComponent,
-        ButtonDeleteComponent,
-        ButtonOpenComponent,
-        ButtonEditComponent,
-        ButtonDetailsComponent,
-        ButtonDownloadComponent
+        ButtonActionsComponent
+     
     ],
     entryComponents: [
         FileComponent,
@@ -53,11 +47,7 @@ const ENTITY_STATES = [
         FilePopupComponent,
         FileDeleteDialogComponent,
         FileDeletePopupComponent,
-        ButtonDeleteComponent,
-        ButtonOpenComponent,
-        ButtonEditComponent,
-        ButtonDetailsComponent,
-        ButtonDownloadComponent
+        ButtonActionsComponent
     ],
     providers: [
         FileService,
