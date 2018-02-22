@@ -7,6 +7,7 @@ import { ButtonDeleteComponent } from './file-actions.component';
 import { ButtonOpenComponent } from './file-actions.component';
 import { ButtonEditComponent } from './file-actions.component';
 import { ButtonDetailsComponent } from './file-actions.component';
+import { ButtonDownloadComponent } from './file-actions.component';
 import {
     FileService,
     FilePopupService,
@@ -43,7 +44,8 @@ const ENTITY_STATES = [
         ButtonDeleteComponent,
         ButtonOpenComponent,
         ButtonEditComponent,
-        ButtonDetailsComponent
+        ButtonDetailsComponent,
+        ButtonDownloadComponent
     ],
     entryComponents: [
         FileComponent,
@@ -54,7 +56,8 @@ const ENTITY_STATES = [
         ButtonDeleteComponent,
         ButtonOpenComponent,
         ButtonEditComponent,
-        ButtonDetailsComponent
+        ButtonDetailsComponent,
+        ButtonDownloadComponent
     ],
     providers: [
         FileService,

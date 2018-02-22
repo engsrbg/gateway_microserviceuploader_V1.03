@@ -11,6 +11,7 @@ import { ButtonDeleteComponent } from './file-actions.component';
 import { ButtonOpenComponent } from './file-actions.component';
 import { ButtonEditComponent } from './file-actions.component';
 import { ButtonDetailsComponent } from './file-actions.component';
+import { ButtonDownloadComponent } from './file-actions.component';
 
 @Component({
     selector: 'jhi-file',
@@ -35,8 +36,6 @@ export class FileComponent implements OnInit, OnDestroy {
     blob: any;
 
     source: any;
-
-
 
     // this is settings for smart tables
     settings = {
@@ -71,7 +70,6 @@ export class FileComponent implements OnInit, OnDestroy {
                 hideSubHeader: true,
                 addable: false
             },
- 
             fileSize: {
                 title: 'File Size',
                 editable: false,
@@ -100,7 +98,7 @@ export class FileComponent implements OnInit, OnDestroy {
                 hideSubHeader: true,
                 addable: false,
             },
-            delete: {
+            download: {
                 title: '',
                 filter: false,
                 editable: false,
@@ -109,9 +107,9 @@ export class FileComponent implements OnInit, OnDestroy {
                 addable: false,
                 searchable: false,
                 type: 'custom',
-                renderComponent: ButtonDeleteComponent,
+                renderComponent: ButtonDownloadComponent,
                 onComponentInitFunction(instance) {
-                  instance.save.subscribe(row => {
+                  instance.save.subscribe((row) => {
                     alert(`${row.name} saved!`)
                   });
                 }
@@ -127,23 +125,7 @@ export class FileComponent implements OnInit, OnDestroy {
                 type: 'custom',
                 renderComponent: ButtonOpenComponent,
                 onComponentInitFunction(instance) {
-                  instance.save.subscribe(row => {
-                    alert(`${row.name} saved!`)
-                  });
-                }
-              },
-              edit: {
-                title: '',
-                filter: false,
-                editable: false,
-                sort: false,
-                hideSubHeader: false,
-                addable: false,
-                searchable: false,
-                type: 'custom',
-                renderComponent: ButtonEditComponent,
-                onComponentInitFunction(instance) {
-                  instance.save.subscribe(row => {
+                  instance.save.subscribe((row) => {
                     alert(`${row.name} saved!`)
                   });
                 }
@@ -159,12 +141,44 @@ export class FileComponent implements OnInit, OnDestroy {
                 type: 'custom',
                 renderComponent: ButtonDetailsComponent,
                 onComponentInitFunction(instance) {
-                  instance.save.subscribe(row => {
+                  instance.save.subscribe((row) => {
                     alert(`${row.name} saved!`)
                   });
                 }
               },
-      
+              edit: {
+                title: '',
+                filter: false,
+                editable: false,
+                sort: false,
+                hideSubHeader: false,
+                addable: false,
+                searchable: false,
+                type: 'custom',
+                renderComponent: ButtonEditComponent,
+                onComponentInitFunction(instance) {
+                  instance.save.subscribe((row) => {
+                    alert(`${row.name} saved!`)
+                  });
+                }
+              },
+            delete: {
+                title: '',
+                filter: false,
+                editable: false,
+                sort: false,
+                hideSubHeader: false,
+                addable: false,
+                searchable: false,
+                type: 'custom',
+                renderComponent: ButtonDeleteComponent,
+                onComponentInitFunction(instance) {
+                  instance.save.subscribe((row) => {
+                    alert(`${row.name} saved!`)
+                  });
+                }
+              },
+
         }
     }
     // this above are settings for smart tables
@@ -264,7 +278,7 @@ export class FileComponent implements OnInit, OnDestroy {
         this.totalItems = headers.get('X-Total-Count');
         this.queryCount = this.totalItems;
         this.files = data;
-        this.source= this.files;
+        this.source = this.files;
     }
     private onError(error) {
         this.jhiAlertService.error(error.message, null, null);
