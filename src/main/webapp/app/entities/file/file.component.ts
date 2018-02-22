@@ -7,6 +7,10 @@ import { File } from './file.model';
 import { FileService } from './file.service';
 import { ITEMS_PER_PAGE, Principal, ResponseWrapper } from '../../shared';
 import { saveAs } from 'file-saver'
+import { ButtonDeleteComponent } from './file-actions.component';
+import { ButtonOpenComponent } from './file-actions.component';
+import { ButtonEditComponent } from './file-actions.component';
+import { ButtonDetailsComponent } from './file-actions.component';
 
 @Component({
     selector: 'jhi-file',
@@ -29,6 +33,141 @@ export class FileComponent implements OnInit, OnDestroy {
     previousPage: any;
     reverse: any;
     blob: any;
+
+    source: any;
+
+
+
+    // this is settings for smart tables
+    settings = {
+        actions: {
+            add: false,
+            edit: false,
+            delete: false
+        },
+        pager: {
+            display: true,
+            perPage: 5
+        },
+        columns: {
+            id: {
+                title: 'ID',
+                editable: false,
+                sort: true,
+                hideSubHeader: true,
+                addable: false,
+            },
+            name: {
+                title: 'Name',
+                editable: false,
+                sort: true,
+                hideSubHeader: true,
+                addable: false
+            },
+            description: {
+                title: 'Description',
+                editable: false,
+                sort: true,
+                hideSubHeader: true,
+                addable: false
+            },
+ 
+            fileSize: {
+                title: 'File Size',
+                editable: false,
+                sort: true,
+                hideSubHeader: true,
+                addable: false,
+            },
+            format: {
+                title: 'Format',
+                editable: false,
+                sort: true,
+                hideSubHeader: true,
+                addable: false,
+            },
+            dateCreated: {
+                title: 'Date Created',
+                editable: false,
+                sort: true,
+                hideSubHeader: true,
+                addable: false,
+            },
+            lastModified: {
+                title: 'Last Modified',
+                editable: false,
+                sort: true,
+                hideSubHeader: true,
+                addable: false,
+            },
+            delete: {
+                title: '',
+                filter: false,
+                editable: false,
+                sort: false,
+                hideSubHeader: false,
+                addable: false,
+                searchable: false,
+                type: 'custom',
+                renderComponent: ButtonDeleteComponent,
+                onComponentInitFunction(instance) {
+                  instance.save.subscribe(row => {
+                    alert(`${row.name} saved!`)
+                  });
+                }
+              },
+              open: {
+                title: '',
+                filter: false,
+                editable: false,
+                sort: false,
+                hideSubHeader: false,
+                addable: false,
+                searchable: false,
+                type: 'custom',
+                renderComponent: ButtonOpenComponent,
+                onComponentInitFunction(instance) {
+                  instance.save.subscribe(row => {
+                    alert(`${row.name} saved!`)
+                  });
+                }
+              },
+              edit: {
+                title: '',
+                filter: false,
+                editable: false,
+                sort: false,
+                hideSubHeader: false,
+                addable: false,
+                searchable: false,
+                type: 'custom',
+                renderComponent: ButtonEditComponent,
+                onComponentInitFunction(instance) {
+                  instance.save.subscribe(row => {
+                    alert(`${row.name} saved!`)
+                  });
+                }
+              },
+              details: {
+                title: '',
+                filter: false,
+                editable: false,
+                sort: false,
+                hideSubHeader: false,
+                addable: false,
+                searchable: false,
+                type: 'custom',
+                renderComponent: ButtonDetailsComponent,
+                onComponentInitFunction(instance) {
+                  instance.save.subscribe(row => {
+                    alert(`${row.name} saved!`)
+                  });
+                }
+              },
+      
+        }
+    }
+    // this above are settings for smart tables
 
     constructor(
         private fileService: FileService,
@@ -125,6 +264,7 @@ export class FileComponent implements OnInit, OnDestroy {
         this.totalItems = headers.get('X-Total-Count');
         this.queryCount = this.totalItems;
         this.files = data;
+        this.source= this.files;
     }
     private onError(error) {
         this.jhiAlertService.error(error.message, null, null);

@@ -1,101 +1,22 @@
 <div>
     <h2>
         <span jhiTranslate="gatewayApp.file.home.title">Files</span>
+
         <button class="btn btn-primary float-right jh-create-entity create-file" [routerLink]="['/', { outlets: { popup: ['file-new'] } }]">
             <span class="fa fa-plus"></span>
             <span jhiTranslate="gatewayApp.file.home.createLabel">
                 Create new File
             </span>
         </button>
+
+        <!-- smart table  -->
+        <ng2-smart-table [settings]="settings" [source]="source"></ng2-smart-table>
+
+        <!-- smart table -->
+
+
     </h2>
     <jhi-alert></jhi-alert>
-    <div class="row">
-    </div>
-    <br/>
-    <div class="table-responsive" *ngIf="files">
-        <table class="table table-striped">
-            <thead>
-                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-                    <th jhiSortBy="id">
-                        <span jhiTranslate="global.field.id">ID</span>
-                        <span class="fa fa-sort"></span>
-                    </th>
-                    <th jhiSortBy="name">
-                        <span jhiTranslate="gatewayApp.file.name">Name</span>
-                        <span class="fa fa-sort"></span>
-                    </th>
-                    <th jhiSortBy="description">
-                        <span jhiTranslate="gatewayApp.file.description">Description</span>
-                        <span class="fa fa-sort"></span>
-                    </th>
-                    <th jhiSortBy="fileSize">
-                        <span jhiTranslate="gatewayApp.file.fileSize">File Size</span>
-                        <span class="fa fa-sort"></span>
-                    </th>
-                    <th jhiSortBy="format">
-                        <span jhiTranslate="gatewayApp.file.format">Format</span>
-                        <span class="fa fa-sort"></span>
-                    </th>
-                    <th jhiSortBy="dateCreated">
-                        <span jhiTranslate="gatewayApp.file.dateCreated">Date Created</span>
-                        <span class="fa fa-sort"></span>
-                    </th>
-                    <th jhiSortBy="lastModified">
-                        <span jhiTranslate="gatewayApp.file.lastModified">Last Modified</span>
-                        <span class="fa fa-sort"></span>
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let file of files; trackBy: trackId">
-                    <td>
-                        <a [routerLink]="['../file', file.id ]">{{file.id}}</a>
-                    </td>
-                    <td>{{file.name}}</td>
-                    <td>{{file.description}}</td>
-                    <td>{{file.fileSize}} bytes</td>
-                    <td jhiTranslate="{{'gatewayApp.FormatType.' + file.format}}">{{file.format}}</td>
-                    <td>{{file.dateCreated | date:'mediumDate'}}</td>
-                    <td>{{file.lastModified | date:'mediumDate'}}</td>
-                    <td class="text-right">
-                        <div class="btn-group flex-btn-group-container">
-                            <button *ngIf="file.content" (click)="downloadFile(file.contentContentType, file.content, file.name)" class="btn btn-default btn-sm">
-                                <span class="fa fa-cloud-download"></span>
-                                <span jhiTranslate="entity.action.download">Download</span>
-                            </button>
-                            <button [disabled]="(file.format!='PDF')" *ngIf="file.content" (click)="openFile(file.contentContentType, file.content)"
-                                class="btn btn-success btn-sm">
-                                <span class="fa fa-eye"></span>
-                                <span jhiTranslate="entity.action.open">Open</span>
-                            </button>
-                            <button type="submit" [routerLink]="['../file', file.id ]" class="btn btn-info btn-sm">
-                                <span class="fa fa-info-circle"></span>
-                                <span class="d-none d-md-inline" jhiTranslate="entity.action.details">Details</span>
-                            </button>
-                            <button type="submit" [routerLink]="['/', { outlets: { popup: 'file/'+ file.id + '/edit'} }]" replaceUrl="true" queryParamsHandling="merge"
-                                class="btn btn-primary btn-sm">
-                                <span class="fa fa-pencil"></span>
-                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-                            </button>
-                            <button type="submit" [routerLink]="['/', { outlets: { popup: 'file/'+ file.id + '/delete'} }]" replaceUrl="true" queryParamsHandling="merge"
-                                class="btn btn-danger btn-sm">
-                                <span class="fa fa-remove"></span>
-                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div *ngIf="files && files.length">
-        <div class="row justify-content-center">
-            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
-        </div>
-        <div class="row justify-content-center">
-            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true"
-                (pageChange)="loadPage(page)"></ngb-pagination>
-        </div>
-    </div>
+   
+    
 </div>

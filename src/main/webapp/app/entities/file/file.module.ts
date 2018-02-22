@@ -2,6 +2,11 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 import { GatewaySharedModule } from '../../shared';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { ButtonDeleteComponent } from './file-actions.component';
+import { ButtonOpenComponent } from './file-actions.component';
+import { ButtonEditComponent } from './file-actions.component';
+import { ButtonDetailsComponent } from './file-actions.component';
 import {
     FileService,
     FilePopupService,
@@ -14,6 +19,7 @@ import {
     fileRoute,
     filePopupRoute,
     FileResolvePagingParams,
+
 } from './';
 
 const ENTITY_STATES = [
@@ -24,7 +30,8 @@ const ENTITY_STATES = [
 @NgModule({
     imports: [
         GatewaySharedModule,
-        RouterModule.forChild(ENTITY_STATES)
+        RouterModule.forChild(ENTITY_STATES),
+        Ng2SmartTableModule
     ],
     declarations: [
         FileComponent,
@@ -33,6 +40,10 @@ const ENTITY_STATES = [
         FileDeleteDialogComponent,
         FilePopupComponent,
         FileDeletePopupComponent,
+        ButtonDeleteComponent,
+        ButtonOpenComponent,
+        ButtonEditComponent,
+        ButtonDetailsComponent
     ],
     entryComponents: [
         FileComponent,
@@ -40,6 +51,10 @@ const ENTITY_STATES = [
         FilePopupComponent,
         FileDeleteDialogComponent,
         FileDeletePopupComponent,
+        ButtonDeleteComponent,
+        ButtonOpenComponent,
+        ButtonEditComponent,
+        ButtonDetailsComponent
     ],
     providers: [
         FileService,
@@ -48,4 +63,4 @@ const ENTITY_STATES = [
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class GatewayFileModule {}
+export class GatewayFileModule { }

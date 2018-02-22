@@ -44,9 +44,9 @@ export class FileDialogComponent implements OnInit {
     }
 
     takeOriginal(event: EventTarget) {
-        let eventObj: MSInputMethodContext = <MSInputMethodContext>event;
-        let target: HTMLInputElement = <HTMLInputElement>eventObj.target;
-        let files: FileList = target.files;
+        const eventObj: MSInputMethodContext = <MSInputMethodContext>event;
+        const target: HTMLInputElement = <HTMLInputElement>eventObj.target;
+        const files: FileList = target.files;
         this.original = files[0];
         this.originalName = this.original.name;
         this.file.name = this.originalName;
