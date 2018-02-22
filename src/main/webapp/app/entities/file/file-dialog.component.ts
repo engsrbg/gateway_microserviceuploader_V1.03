@@ -24,8 +24,8 @@ export class FileDialogComponent implements OnInit {
     radioDisabled: boolean;
     original: File;
     originalName: string;
-
-
+    originalType: string;
+    flagSave: Boolean = false;
 
     constructor(
         public activeModal: NgbActiveModal,
@@ -50,6 +50,7 @@ export class FileDialogComponent implements OnInit {
         this.original = files[0];
         this.originalName = this.original.name;
         this.file.name = this.originalName;
+        this.originalType = files[0].type;
     }
 
     openFile(contentType, field) {
@@ -57,10 +58,8 @@ export class FileDialogComponent implements OnInit {
     }
 
     setFileData(event, entity, field, isImage, ime) {
-
         this.radioDisabled = true;
         this.dataUtils.setFileData(event, entity, field, isImage);
-
     }
 
     setType(type: string) {
@@ -97,6 +96,11 @@ export class FileDialogComponent implements OnInit {
         this.isSaving = false;
     }
 
+    public controlType() {
+        if (this.originalType !== this.typeFinal) {
+            this.flagSave = true;
+        }
+    }
 }
 
 @Component({

@@ -18,7 +18,9 @@
             "fileSize": "File Size",
             "format": "File format",
             "dateCreated": "Date Created",
-            "lastModified": "Last Modified"
+            "lastModified": "Last Modified",
+            "alert-choose": "Attention! Choose format of your file first.",
+            "alert-format": "You must drop same file type as You selected."
         }
     },
     "microserviceuploaderApp": {

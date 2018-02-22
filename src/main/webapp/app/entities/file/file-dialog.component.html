@@ -12,7 +12,9 @@
             <label for="id" jhiTranslate="global.field.id">ID</label>
             <input type="text" class="form-control" id="id" name="id" [(ngModel)]="file.id" readonly />
         </div>
-
+        <div [hidden]="typeFinal" class="alert alert-danger">
+            <strong jhiTranslate="gatewayApp.file.alert-format">Attention! Choose format of your file first.</strong> 
+        </div>
         <!-- if file with it's id exist we can't see radio buttons -->
         <div class="form-group" [hidden]="file.id">
             <label class="form-control-label" jhiTranslate="gatewayApp.file.format" for="field_format">Choose your File format</label>
@@ -43,6 +45,13 @@
                 </div>
                 <input name="file" [hidden]="file.content" [accept]="typeFinal" [disabled]="!typeFinal" type="file" id="file_content" (change)="setFileData($event, file, 'content', false, file.name); takeOriginal($event)"
                     jhiTranslate="entity.action.addblob" />
+                <!-- drag and drop field; we can't drop any file before choose type of file on radio buttons -->
+                <div class="form-group inputDnD">
+                    <label class="sr-only" for="inputFile">File Upload</label>
+                    <input name="file" [hidden]="file.content" [accept]="typeFinal" [disabled]="!typeFinal" type="file" class="form-control-file text-primary font-weight-bold"
+                        id="inputFile" (change)="setFileData($event, file, 'content', false); takeOriginal($event); controlType();"
+                        data-title="Drag and drop a file here">
+                </div>
             </div>
             <input type="hidden" class="form-control" name="content" id="field_content" [(ngModel)]="file.content" maxbytes="20971520"
             />
@@ -73,6 +82,10 @@
                     readonly/>
             </div>
         </div>
+        <!-- warning user that he is droped diferent type of file than he choosed on radio buttons and he can't save this file because SAVE button is disabled -->
+        <div [hidden]="!flagSave" class="alert alert-danger">
+            <strong jhiTranslate="gatewayApp.file.alert-format">You must drop same file type as You selected.</strong>
+        </div>
         <!-- if id alredy exist name cannot be changed
         that is the case when user trying to edit file -->
         <div class="form-group">
@@ -89,7 +102,7 @@
             <span class="fa fa-ban"></span>&nbsp;
             <span jhiTranslate="entity.action.cancel">Cancel</span>
         </button>
-        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving || flagSave" class="btn btn-primary">
             <span class="fa fa-save"></span>&nbsp;
             <span jhiTranslate="entity.action.save">Save</span>
         </button>
