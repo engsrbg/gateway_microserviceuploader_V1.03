@@ -1,0 +1,19 @@
+<div class="btn-group">
+    <button (click)="downloadFile(rowData)" class="btn btn-success btn-sm" title="{{'entity.action.download'| translate}}">
+        <span class="fa fa-download"></span>
+    </button>
+    <button type="submit" [routerLink]="['/', { outlets: { popup: 'file/'+ rowData.id + '/delete'} }]" replaceUrl="true" queryParamsHandling="merge"
+        class="btn btn-danger btn-sm" title="{{'entity.action.delete'| translate}}">
+        <span class="fa fa-remove"></span>
+    </button>
+    <button [disabled]="(rowData.format!='PDF')" (click)="openFile(rowData)" class="btn btn-warning btn-sm" title="{{'entity.action.open'| translate}}">
+        <span class="fa fa-eye"></span>
+    </button>
+    <button type="submit" [routerLink]="['/', { outlets: { popup: 'file/'+ rowData.id + '/edit'} }]" replaceUrl="true" queryParamsHandling="merge"
+        class="btn btn-primary btn-sm" title="{{'entity.action.edit'| translate}}">
+        <span class="fa fa-pencil"></span>
+    </button>
+    <button type="submit" [routerLink]="['../file', rowData.id ]" class="btn btn-info btn-sm" title="{{'entity.action.details'| translate}}">
+        <span class="fa fa-info-circle"></span>
+    </button>
+</div>

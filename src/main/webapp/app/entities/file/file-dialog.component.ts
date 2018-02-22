@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Response } from '@angular/http';
+import { FormsModule, NgForm } from '@angular/forms';
 
 import { Observable } from 'rxjs/Observable';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -100,6 +101,15 @@ export class FileDialogComponent implements OnInit {
         if (this.originalType !== this.typeFinal) {
             this.flagSave = true;
         }
+
+    }
+
+    resetInput() {
+        const form = document.getElementById('myForm') as HTMLFormElement;
+        form.reset();
+        this.radioDisabled = !this.radioDisabled;
+        this.flagSave = !this.flagSave;
+        this.typeFinal = undefined;
     }
 }
 

@@ -1,4 +1,4 @@
-<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm" id="myForm">
     <div class="modal-header">
         <h4 *ngIf="!file.id" class="modal-title" id="myFileLabel" jhiTranslate="gatewayApp.file.home.createNewLabel">Create a File</h4>
         <h4 *ngIf="file.id" class="modal-title" id="myFileLabel" jhiTranslate="gatewayApp.file.home.editLabel">Edit a File</h4>
@@ -12,8 +12,9 @@
             <label for="id" jhiTranslate="global.field.id">ID</label>
             <input type="text" class="form-control" id="id" name="id" [(ngModel)]="file.id" readonly />
         </div>
-        <div [hidden]="typeFinal" class="alert alert-danger">
-            <strong jhiTranslate="gatewayApp.file.alert-choose">Attention! Choose format of your file first.</strong> 
+        <!-- message that say user that he must choose file format -->
+        <div [hidden]="typeFinal || file.id" class="alert alert-danger">
+            <strong jhiTranslate="gatewayApp.file.alert-choose">Attention! Choose format of your file first.</strong>
         </div>
         <!-- if file with it's id exist we can't see radio buttons -->
         <div class="form-group" [hidden]="file.id">
@@ -34,8 +35,11 @@
         <div class="form-group">
             <div>
                 <div *ngIf="file.content && (file.format =='PDF' || file.format =='DOCX' || file.format =='XLSX') " class="form-text text-danger clearfix">
-                    <a class="pull-left" (click)="openFile(file.contentContentType, file.content)" jhiTranslate="entity.action.open">open</a>
+                    <button [hidden]= "flagSave" class="btn btn-link" (click)="openFile(file.contentContentType, file.content);" jhiTranslate="entity.action.open">open</button>
                     <br>
+                    <button [hidden]="!flagSave" type="button" class="btn btn-secondary btn-sm active pull-right" (click)="resetInput(); file.name= ''; ">
+                        <span class="fa fa-times"></span>
+                    </button>
                     <span class="pull-left">{{file.name}}</span>
                     <!-- button and input for adding new file will be hidden if file alredy exist which is case
                     when user trying to update file -->
@@ -48,8 +52,8 @@
                 <!-- drag and drop field; we can't drop any file before choose type of file on radio buttons -->
                 <div class="form-group inputDnD">
                     <label class="sr-only" for="inputFile">File Upload</label>
-                    <input name="file" [hidden]="file.content" [accept]="typeFinal" [disabled]="!typeFinal" type="file" class="form-control-file text-primary font-weight-bold"
-                        id="inputFile" (change)="setFileData($event, file, 'content', false); takeOriginal($event); controlType();"
+                    <input name="file" [hidden]="file.content" [accept]="typeFinal" [disabled]="!typeFinal" type="file" id="file_content" class="form-control-file text-primary font-weight-bold"
+                        (change)="setFileData($event, file, 'content', false); takeOriginal($event); controlType();"
                         data-title="Drag and drop a file here">
                 </div>
             </div>
@@ -90,7 +94,7 @@
         that is the case when user trying to edit file -->
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="gatewayApp.file.name" for="field_name">Name of your File</label>
-            <input type="text" class="form-control" name="name" id="field_name" [(ngModel)]="file.name" [readonly]="file.id" />
+            <input  type="text" class="form-control" name="name" id="field_name" [(ngModel)]="file.name" [readonly]="file.id" />
         </div>
         <div class="form-group">
             <label class="form-control-label" jhiTranslate="gatewayApp.file.description" for="field_description">Description</label>

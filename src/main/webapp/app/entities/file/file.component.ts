@@ -6,7 +6,7 @@ import { JhiEventManager, JhiParseLinks, JhiAlertService, JhiDataUtils } from 'n
 import { File } from './file.model';
 import { FileService } from './file.service';
 import { ITEMS_PER_PAGE, Principal, ResponseWrapper } from '../../shared';
-import { saveAs } from 'file-saver'
+import { saveAs } from 'file-saver';
 import { ButtonActionsComponent } from './file-actions.component';
 
 @Component({

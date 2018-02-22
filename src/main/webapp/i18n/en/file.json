@@ -19,7 +19,7 @@
             "format": "File format",
             "dateCreated": "Date Created",
             "lastModified": "Last Modified",
-            "alert-choose": "Attention! Choose format of your file first.",
+            "alert-choose": "Choose format of your file first.",
             "alert-format": "You must drop same file type as You selected."
         }
     },
