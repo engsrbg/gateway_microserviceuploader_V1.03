@@ -8,6 +8,7 @@ import { FileService } from './file.service';
 import { ITEMS_PER_PAGE, Principal, ResponseWrapper } from '../../shared';
 import { saveAs } from 'file-saver';
 import { ButtonActionsComponent } from './file-actions.component';
+import { DatePipe } from '@angular/common';
 
 @Component({
     selector: 'jhi-file',
@@ -86,6 +87,12 @@ export class FileComponent implements OnInit, OnDestroy {
                 sort: true,
                 hideSubHeader: true,
                 addable: false,
+                valuePrepareFunction: (date) => {
+                    var raw = new Date(date);
+
+                    var formatted = this.datePipe.transform(raw, 'dd-MM-yyyy');
+                    return formatted;
+                }
             },
             lastModified: {
                 title: 'Last Modified',
@@ -93,6 +100,12 @@ export class FileComponent implements OnInit, OnDestroy {
                 sort: true,
                 hideSubHeader: true,
                 addable: false,
+                valuePrepareFunction: (date) => {
+                    var raw = new Date(date);
+
+                    var formatted = this.datePipe.transform(raw, 'dd-MM-yyyy');
+                    return formatted;
+                }
             },
             actions: {
                 title: 'Actions',
@@ -105,14 +118,16 @@ export class FileComponent implements OnInit, OnDestroy {
                 type: 'custom',
                 renderComponent: ButtonActionsComponent,
                 onComponentInitFunction: (instance) => {
+                    //parent listen event open from child and in that case parent will call openFile function
                     instance.open.subscribe((row) => {
-                        this.openFile(row.contentContentType, row.content);  
+                        this.openFile(row.contentContentType, row.content);
                     });
+                    //parent listen event download from child and in that case parent will call downloadFile function
                     instance.download.subscribe((row) => {
-                        this.downloadFile(row.contentContentType, row.content, row.name);  
-                    });                
+                        this.downloadFile(row.contentContentType, row.content, row.name);
+                    });
                 }
-              },
+            },
         }
     }
     // this above are settings for smart tables
@@ -125,7 +140,8 @@ export class FileComponent implements OnInit, OnDestroy {
         private activatedRoute: ActivatedRoute,
         private dataUtils: JhiDataUtils,
         private router: Router,
-        private eventManager: JhiEventManager
+        private eventManager: JhiEventManager,
+        private datePipe: DatePipe
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe((data) => {
