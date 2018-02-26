@@ -9,6 +9,7 @@ import { ITEMS_PER_PAGE, Principal, ResponseWrapper } from '../../shared';
 import { saveAs } from 'file-saver';
 import { ButtonActionsComponent } from './file-actions.component';
 import { DatePipe } from '@angular/common';
+import { LocalDataSource } from 'ng2-smart-table';
 
 @Component({
     selector: 'jhi-file',
@@ -42,8 +43,8 @@ export class FileComponent implements OnInit, OnDestroy {
             delete: false
         },
         pager: {
-            display: true,
-            perPage: 5
+            display: false,
+            perPage: 10
         },
         columns: {
             id: {
@@ -150,6 +151,7 @@ export class FileComponent implements OnInit, OnDestroy {
             this.reverse = data.pagingParams.ascending;
             this.predicate = data.pagingParams.predicate;
         });
+        this.loadAll();
     }
 
     loadAll() {
@@ -189,7 +191,7 @@ export class FileComponent implements OnInit, OnDestroy {
         this.loadAll();
     }
     ngOnInit() {
-        this.loadAll();
+
         this.principal.identity().then((account) => {
             this.currentAccount = account;
         });
@@ -210,7 +212,7 @@ export class FileComponent implements OnInit, OnDestroy {
 
     openFile(contentType, field, id) {
         if (contentType === 'application/pdf') {
-            this.dataUtils.openFile(contentType , field);
+            this.dataUtils.openFile(contentType, field);
         } else {
             this.fileService.find(id).subscribe(
                 (res: File) => this.dataUtils.openFile(res.contentContentType, res.content),
@@ -235,11 +237,11 @@ export class FileComponent implements OnInit, OnDestroy {
         this.totalItems = headers.get('X-Total-Count');
         this.queryCount = this.totalItems;
         this.files = data;
-        this.source = this.files;
+        this.source = new LocalDataSource(this.files);
     }
     private onOpenSuccess(data) {
         console.log(data);
-        this.dataUtils.openFile(data.contentContentType , data.content);
+        this.dataUtils.openFile(data.contentContentType, data.content);
         return data;
     }
     private onError(error) {
