@@ -6,7 +6,7 @@
         class="btn btn-danger btn-sm" title="{{'entity.action.delete'| translate}}">
         <span class="fa fa-remove"></span>
     </button>
-    <button [disabled]="(rowData.format!='PDF')" (click)="openFile(rowData)" class="btn btn-warning btn-sm" title="{{'entity.action.open'| translate}}">
+    <button (click)="openFile(rowData)" class="btn btn-warning btn-sm" title="{{'entity.action.open'| translate}}">
         <span class="fa fa-eye"></span>
     </button>
     <button type="submit" [routerLink]="['/', { outlets: { popup: 'file/'+ rowData.id + '/edit'} }]" replaceUrl="true" queryParamsHandling="merge"

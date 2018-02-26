@@ -15,7 +15,7 @@ export class ButtonActionsComponent implements ViewCell, OnInit {
     @Input() value: string | number;
     @Input() rowData: any;
 
-    //here we define two events: open and download
+    // here we define two events: open and download
     @Output() open: EventEmitter<any> = new EventEmitter();
     @Output() download: EventEmitter<any> = new EventEmitter();
 
@@ -28,11 +28,11 @@ export class ButtonActionsComponent implements ViewCell, OnInit {
     }
 
     openFile(rowData) {
-        //this activate event open and forward rowData to the parent 
+        // this activate event open and forward rowData to the parent
         this.open.emit(rowData);
     }
     downloadFile(rowData) {
-        //this activate event download and forward rowData to the parent 
+        // this activate event download and forward rowData to the parent
         this.download.emit(rowData);
     }
 

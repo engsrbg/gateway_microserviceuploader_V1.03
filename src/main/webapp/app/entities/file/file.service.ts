@@ -12,6 +12,7 @@ import { ResponseWrapper, createRequestOption } from '../../shared';
 export class FileService {
 
     private resourceUrl =  SERVER_API_URL + '/microserviceuploader/api/files';
+    private resourceUrlview =  SERVER_API_URL + '/microserviceuploader/api/files/view';
 
     constructor(private http: Http, private dateUtils: JhiDateUtils) { }
 
@@ -32,7 +33,7 @@ export class FileService {
     }
 
     find(id: number): Observable<File> {
-        return this.http.get(`${this.resourceUrl}/${id}`).map((res: Response) => {
+        return this.http.get(`${this.resourceUrlview}/${id}`).map((res: Response) => {
             const jsonResponse = res.json();
             return this.convertItemFromServer(jsonResponse);
         });

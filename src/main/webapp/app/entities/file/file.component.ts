@@ -88,9 +88,9 @@ export class FileComponent implements OnInit, OnDestroy {
                 hideSubHeader: true,
                 addable: false,
                 valuePrepareFunction: (date) => {
-                    var raw = new Date(date);
+                    const raw = new Date(date);
 
-                    var formatted = this.datePipe.transform(raw, 'dd-MM-yyyy');
+                    const formatted = this.datePipe.transform(raw, 'dd-MM-yyyy');
                     return formatted;
                 }
             },
@@ -101,9 +101,9 @@ export class FileComponent implements OnInit, OnDestroy {
                 hideSubHeader: true,
                 addable: false,
                 valuePrepareFunction: (date) => {
-                    var raw = new Date(date);
+                    const raw = new Date(date);
 
-                    var formatted = this.datePipe.transform(raw, 'dd-MM-yyyy');
+                    const formatted = this.datePipe.transform(raw, 'dd-MM-yyyy');
                     return formatted;
                 }
             },
@@ -118,11 +118,11 @@ export class FileComponent implements OnInit, OnDestroy {
                 type: 'custom',
                 renderComponent: ButtonActionsComponent,
                 onComponentInitFunction: (instance) => {
-                    //parent listen event open from child and in that case parent will call openFile function
+                    // parent listen event open from child and in that case parent will call openFile function
                     instance.open.subscribe((row) => {
-                        this.openFile(row.contentContentType, row.content);
+                        this.openFile(row.contentContentType, row.content, row.id);
                     });
-                    //parent listen event download from child and in that case parent will call downloadFile function
+                    // parent listen event download from child and in that case parent will call downloadFile function
                     instance.download.subscribe((row) => {
                         this.downloadFile(row.contentContentType, row.content, row.name);
                     });
@@ -208,8 +208,15 @@ export class FileComponent implements OnInit, OnDestroy {
         return this.dataUtils.byteSize(field);
     }
 
-    openFile(contentType, field) {
-        return this.dataUtils.openFile(contentType, field);
+    openFile(contentType, field, id) {
+        if (contentType === 'application/pdf') {
+            this.dataUtils.openFile(contentType , field);
+        } else {
+            this.fileService.find(id).subscribe(
+                (res: File) => this.dataUtils.openFile(res.contentContentType, res.content),
+                (res: File) => this.onError(res)
+            );
+        }
     }
     registerChangeInFiles() {
         this.eventSubscriber = this.eventManager.subscribe('fileListModification', (response) => this.loadAll());
@@ -229,6 +236,11 @@ export class FileComponent implements OnInit, OnDestroy {
         this.queryCount = this.totalItems;
         this.files = data;
         this.source = this.files;
+    }
+    private onOpenSuccess(data) {
+        console.log(data);
+        this.dataUtils.openFile(data.contentContentType , data.content);
+        return data;
     }
     private onError(error) {
         this.jhiAlertService.error(error.message, null, null);

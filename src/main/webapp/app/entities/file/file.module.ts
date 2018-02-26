@@ -39,7 +39,6 @@ const ENTITY_STATES = [
         FilePopupComponent,
         FileDeletePopupComponent,
         ButtonActionsComponent
-     
     ],
     entryComponents: [
         FileComponent,
