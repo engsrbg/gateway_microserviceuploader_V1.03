@@ -107,9 +107,6 @@ export class FileDialogComponent implements OnInit {
     // function witch reset whole form
     // we use it when user drop file with type that he didnt chooese on radio buttons
     resetInput() {
-        // taking form into constant variable
-        const form = document.getElementById('myForm') as HTMLFormElement;
-        form.reset();
         // enebling radio buttons again
         this.radioDisabled = !this.radioDisabled;
         // enabling save button again

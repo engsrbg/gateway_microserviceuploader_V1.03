@@ -37,7 +37,7 @@
                 <div *ngIf="file.content && (file.format =='PDF' || file.format =='DOCX' || file.format =='XLSX') " class="form-text text-danger clearfix">
                     <button [hidden]= "flagSave" class="btn btn-link" (click)="openFile(file.contentContentType, file.content);" jhiTranslate="entity.action.open">open</button>
                     <br>
-                    <button [hidden]="!flagSave" type="button" class="btn btn-secondary btn-sm active pull-right" (click)="resetInput(); file.name= ''; ">
+                    <button [hidden]="!flagSave" type="button" class="btn btn-secondary btn-sm active pull-right" (click)="resetInput(); editForm.reset(); file.name= ''; ">
                         <span class="fa fa-times"></span>
                     </button>
                     <span class="pull-left">{{file.name}}</span>
