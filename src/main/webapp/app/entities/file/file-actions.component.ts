@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { JhiEventManager, JhiParseLinks, JhiAlertService, JhiDataUtils } from 'ng-jhipster';
-import { ViewCell } from 'ng2-smart-table';
+//import { ViewCell } from 'ng2-smart-table';
 import { saveAs } from 'file-saver'
 
 // this is common components for all buttons and their actions
@@ -8,11 +8,10 @@ import { saveAs } from 'file-saver'
     selector: 'jhi-button-download',
     templateUrl: './file-actions.component.html',
 })
-export class ButtonActionsComponent implements ViewCell, OnInit {
+export class ButtonActionsComponent implements OnInit {
     renderValue: string;
     blob: any;
 
-    @Input() value: string | number;
     @Input() rowData: any;
 
     // here we define two events: open and download
