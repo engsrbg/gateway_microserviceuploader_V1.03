@@ -214,7 +214,7 @@ export class FileComponent implements OnInit, OnDestroy {
         if (contentType === 'application/pdf') {
             this.dataUtils.openFile(contentType, field);
         } else {
-            this.fileService.find(id).subscribe(
+            this.fileService.findView(id).subscribe(
                 (res: File) => this.dataUtils.openFile(res.contentContentType, res.content),
                 (res: File) => this.onError(res)
             );
@@ -239,11 +239,7 @@ export class FileComponent implements OnInit, OnDestroy {
         this.files = data;
         this.source = new LocalDataSource(this.files);
     }
-    private onOpenSuccess(data) {
-        console.log(data);
-        this.dataUtils.openFile(data.contentContentType, data.content);
-        return data;
-    }
+
     private onError(error) {
         this.jhiAlertService.error(error.message, null, null);
     }

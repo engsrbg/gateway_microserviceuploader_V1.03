@@ -33,6 +33,13 @@ export class FileService {
     }
 
     find(id: number): Observable<File> {
+        return this.http.get(`${this.resourceUrl}/${id}`).map((res: Response) => {
+            const jsonResponse = res.json();
+            return this.convertItemFromServer(jsonResponse);
+        });
+    }
+
+    findView(id: number): Observable<File> {
         return this.http.get(`${this.resourceUrlview}/${id}`).map((res: Response) => {
             const jsonResponse = res.json();
             return this.convertItemFromServer(jsonResponse);

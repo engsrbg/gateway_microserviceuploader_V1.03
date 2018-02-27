@@ -58,7 +58,7 @@ export class FileDialogComponent implements OnInit {
         return this.dataUtils.openFile(contentType, field);
     }
 
-    setFileData(event, entity, field, isImage, ime) {
+    setFileData(event, entity, field, isImage) {
         this.radioDisabled = true;
         this.dataUtils.setFileData(event, entity, field, isImage);
     }
